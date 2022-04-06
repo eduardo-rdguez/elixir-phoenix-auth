@@ -8,6 +8,7 @@ defmodule ElixirPhoenixAuth.Accounts do
 
   import Argon2, only: [no_user_verify: 0, check_pass: 2]
   alias ElixirPhoenixAuth.Accounts.User
+  alias ElixirPhoenixAuth.Guardian
 
   @doc """
   Returns the list of users.
@@ -101,6 +102,16 @@ defmodule ElixirPhoenixAuth.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def token_sign_in(email, password) do
+    case email_password_auth(email, password) do
+      {:ok, user} ->
+        Guardian.encode_and_sign(user)
+
+      {:error, _} ->
+        {:error, :unauthorized}
+    end
   end
 
   def email_password_auth(email, password) when is_binary(email) and is_binary(password) do
