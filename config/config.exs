@@ -32,4 +32,4 @@ import_config "#{config_env()}.exs"
 # Guardian configuration
 config :elixir_phoenix_auth, ElixirPhoenixAuth.Guardian,
   issuer: "elixir_phoenix_auth",
-  secret: "Secret key. Use `mix guardian.gen.secret` to generate one"
+  secret_key: "Secret key. Use `mix guardian.gen.secret` to generate one"
