@@ -103,6 +103,12 @@ defmodule ElixirPhoenixAuth.Accounts do
     User.changeset(user, attrs)
   end
 
+  def email_password_auth(email, password) when is_binary(email) and is_binary(password) do
+    with {:ok, user} <- get_by_email(email) do
+      verify_password(user, password)
+    end
+  end
+
   def get_by_email(email) when is_binary(email) do
     case Repo.get_by(User, email: email) do
       nil ->
