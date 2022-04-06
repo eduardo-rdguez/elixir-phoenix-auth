@@ -15,8 +15,7 @@ defmodule ElixirPhoenixAuthWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.create_user(user_params),
          {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
-      conn
-      |> render("jwt.json", jwt: token)
+      render(conn, "jwt.json", jwt: token)
     end
   end
 
@@ -38,6 +37,16 @@ defmodule ElixirPhoenixAuthWeb.UserController do
 
     with {:ok, %User{}} <- Accounts.delete_user(user) do
       send_resp(conn, :no_content, "")
+    end
+  end
+
+  def sign_in(conn, %{"email" => email, "password" => password}) do
+    case Accounts.token_sign_in(email, password) do
+      {:ok, token, _claims} ->
+        render(conn, "jwt.json", jwt: token)
+
+      _ ->
+        {:error, :unauthorized}
     end
   end
 end
