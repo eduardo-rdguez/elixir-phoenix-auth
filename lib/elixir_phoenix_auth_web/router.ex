@@ -15,4 +15,10 @@ defmodule ElixirPhoenixAuthWeb.Router do
     post "/sign_up", UserController, :create
     post "/sign_in", UserController, :sign_in
   end
+
+  scope "/api/v1", ElixirPhoenixAuthWeb do
+    pipe_through [:api, :jwt_authenticated]
+
+    get "/users", UserController, :show
+  end
 end
