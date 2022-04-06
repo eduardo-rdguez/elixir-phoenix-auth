@@ -1,6 +1,8 @@
 defmodule ElixirPhoenixAuthWeb.Router do
   use ElixirPhoenixAuthWeb, :router
 
+  alias ElixirPhoenixAuth.Guardian
+
   pipeline :api do
     plug :accepts, ["json"]
   end
