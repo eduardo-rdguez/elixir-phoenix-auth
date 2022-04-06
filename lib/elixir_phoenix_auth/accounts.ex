@@ -6,6 +6,7 @@ defmodule ElixirPhoenixAuth.Accounts do
   import Ecto.Query, warn: false
   alias ElixirPhoenixAuth.Repo
 
+  import Argon2, only: [no_user_verify: 0]
   alias ElixirPhoenixAuth.Accounts.User
 
   @doc """
@@ -100,5 +101,16 @@ defmodule ElixirPhoenixAuth.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  def get_by_email(email) when is_binary(email) do
+    case Repo.get_by(User, email: email) do
+      nil ->
+        no_user_verify()
+        {:error, "login error"}
+
+      user ->
+        {:ok, user}
+    end
   end
 end
