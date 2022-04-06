@@ -2,7 +2,7 @@ defmodule ElixirPhoenixAuth.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
-  import Comeonin.Bcrypt, only: [hashpwsalt: 1]
+  import Argon2, only: [add_hash: 1]
 
   schema "users" do
     field :email, :string
@@ -30,7 +30,7 @@ defmodule ElixirPhoenixAuth.Accounts.User do
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :password_hash, hashpwsalt(pass))
+        change(changeset, add_hash(pass))
 
       _ ->
         changeset
