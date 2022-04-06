@@ -1,4 +1,4 @@
-defmodule ElixirPhoenixAuthWeb.AuthPipeline do
+defmodule ElixirPhoenixAuth.Guardian.AuthPipeline do
   use Guardian.Plug.Pipeline,
     otp_app: :elixir_phoenix_auth,
     module: ElixirPhoenixAuth.Guardian,
