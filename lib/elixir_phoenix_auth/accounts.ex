@@ -6,7 +6,7 @@ defmodule ElixirPhoenixAuth.Accounts do
   import Ecto.Query, warn: false
   alias ElixirPhoenixAuth.Repo
 
-  import Argon2, only: [no_user_verify: 0]
+  import Argon2, only: [no_user_verify: 0, check_pass: 2]
   alias ElixirPhoenixAuth.Accounts.User
 
   @doc """
@@ -112,5 +112,9 @@ defmodule ElixirPhoenixAuth.Accounts do
       user ->
         {:ok, user}
     end
+  end
+
+  def verify_password(%User{} = user, password) when is_binary(password) do
+    check_pass(user, password)
   end
 end
