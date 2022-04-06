@@ -20,7 +20,7 @@ defmodule ElixirPhoenixAuth.MixProject do
   def application do
     [
       mod: {ElixirPhoenixAuth.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bcrypt_elixir, :argon2_elixir]
+      extra_applications: [:logger, :runtime_tools, :bcrypt_elixir, :argon2_elixir, :guardian, :poison]
     ]
   end
 
@@ -44,7 +44,8 @@ defmodule ElixirPhoenixAuth.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:bcrypt_elixir, "~> 3.0"},
       {:argon2_elixir, "~> 3.0"},
-      {:guardian, "~> 2.2"}
+      {:guardian, "~> 2.2"},
+      {:poison, "~> 5.0"}
     ]
   end
 
