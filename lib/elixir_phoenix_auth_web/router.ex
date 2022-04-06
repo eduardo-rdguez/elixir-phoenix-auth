@@ -5,7 +5,9 @@ defmodule ElixirPhoenixAuthWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ElixirPhoenixAuthWeb do
+  scope "/api/v1", ElixirPhoenixAuthWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:create, :show]
   end
 end
