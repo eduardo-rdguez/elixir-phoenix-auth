@@ -17,4 +17,8 @@ defmodule ElixirPhoenixAuthWeb.UserView do
       password_hash: user.password_hash
     }
   end
+
+  def render("jwt.json", %{jwt: jwt}) do
+    %{jwt: jwt}
+  end
 end
