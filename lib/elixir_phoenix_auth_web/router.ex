@@ -5,6 +5,10 @@ defmodule ElixirPhoenixAuthWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
+  end
+
   scope "/api/v1", ElixirPhoenixAuthWeb do
     pipe_through :api
 
