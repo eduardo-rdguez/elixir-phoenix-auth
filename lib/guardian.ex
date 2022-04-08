@@ -12,7 +12,7 @@ defmodule ElixirPhoenixAuth.Guardian do
     {:error, :reason_for_error}
   end
 
-  def resource_from_exclaims(%{"sub" => id}) do
+  def resource_from_claims(%{"sub" => id}) do
     resource = Accounts.get_user!(id)
     {:ok, resource}
   end
